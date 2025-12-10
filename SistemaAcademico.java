@@ -3,10 +3,12 @@ import java.util.*;
 public class SistemaAcademico {
     HashMap<String, Aluno> alunos;
     HashMap<String, Disciplina> disciplinas;
+    HashMap<Integer, Curso> cursos;
 
     public SistemaAcademico(){
         alunos = new HashMap<>();
         disciplinas = new HashMap<>();
+        cursos = new HashMap<>();
     }
 
     public void processarArquivo(String nomeArq) throws IOException{
@@ -22,7 +24,7 @@ public class SistemaAcademico {
         }
         br.close();
         calcularTodosCR();
-        calcularCRMedioDisciplina();
+        calcularCRMedioCursos();
     }
     private void processarLinha(String linha) {
         String[] dados = linha.split("[,; ]");
@@ -45,6 +47,13 @@ public class SistemaAcademico {
             alunos.put(mat,aluno);
         }
 
+        Curso curso = cursos.get(codCurso);
+        if(curso == null){
+            curso = new Curso(codCurso);
+            cursos.put(codCurso, curso);
+        }
+        curso.adicionarAluno(aluno);
+
         Disciplina disciplina = disciplinas.get(codDisciplina);
         if(disciplina == null){
             disciplina = new Disciplina(codDisciplina, cargaHoraria);
@@ -60,10 +69,11 @@ public class SistemaAcademico {
         for(Aluno aluno : alunos.values())
             aluno.calculaCR();
     }
-    private void calcularCRMedioDisciplina(){
-        for(Disciplina disciplina : disciplinas.values()){
-            disciplina.calcularMediaCR();
+    private void calcularCRMedioCursos(){
+        for(Curso curso : cursos.values()){
+            curso.calculaCRMedio();
         }
+        
     }
 
     public void imprimirRelatorioFinal(){
@@ -71,15 +81,16 @@ public class SistemaAcademico {
         listaAlunos.sort(Comparator.comparing(Aluno::getMat));
         System.out.println("\n------- O CR dos alunos é: --------\n");
 
-        for(Aluno aluno : alunos.values()){
-             System.out.printf("Matrícula: %s | CR: %.2f%n", aluno.getMat(), aluno.getCR());
+        for(Aluno aluno : listaAlunos){
+             System.out.printf("Matrícula: %s - CR: %.2f%n", aluno.getMat(), aluno.getCR());
         }
         System.out.println("-----------------------------------");
 
         System.out.println("\n----- Média de CR dos cursos -----\n");
-        for(Disciplina disciplina : disciplinas.values()){
-            double crMedio = disciplina.getMediaCR();
-            System.out.printf("Disciplina: %s | CR Médio: %.2f%n", disciplina.getCodDisciplina(), crMedio);
+        List<Curso> listaCursos = new ArrayList<>(cursos.values());
+        listaCursos.sort(Comparator.comparing(Curso::getCodCurso));
+        for(Curso curso : listaCursos){
+            System.out.printf("Cod: %d - %.2f\n",curso.getCodCurso(), curso.getCRMedio());
         }
 
     }

@@ -29,10 +29,15 @@ public class Disciplina {
         notas.put(mat,nota);
     }
 
+    /* 
     public void calcularMediaCR(){
+         if(notas.isEmpty()){
+            return;
+        }
         Double soma = 0.0;
         for(Double notaAluno : notas.values())
              soma += notaAluno;
         this.mediaCR = soma/notas.size();
     }
+    */
 }
