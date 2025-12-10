@@ -1,0 +1,22 @@
+# Arquivos compilados
+*.class
+
+# Arquivos de pacote
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
