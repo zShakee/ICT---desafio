@@ -6,6 +6,7 @@ public class main {
             SistemaAcademico sistema = new SistemaAcademico();
             sistema.processarArquivo("notas.csv");
             sistema.imprimirRelatorioFinal();
+            //sistema.imprimeAlunos();
             
         } catch(IOException e){
             System.err.println("Erro ao ler arquivo: " + e.getMessage());

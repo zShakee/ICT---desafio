@@ -1,11 +1,13 @@
 
-import java.util.HashMap;
+import java.util.*;
 
 public class Disciplina {
     private String cod_disciplina;
     private int cargaHoraria;
     private Double mediaCR;
-    private HashMap<String,Double> notas; // matricula -> nota
+    private HashMap<String,HashMap<String, Double>> notas; // matricula -> (semestre -> nota)
+
+    //observação importante para mat 102 e 115, alunos cursando a mesma disciplina duas vezes
 
     public Disciplina(String cod_disciplina, int cargaHoraria){
         this.cod_disciplina = cod_disciplina;
@@ -15,8 +17,10 @@ public class Disciplina {
     public int getCargaHoraria(){
         return cargaHoraria;
     }
-    public Double getNota(String mat){
-        return notas.get(mat);
+    public Collection<Double> getNota(String mat){ //preciso agora devolver o vetor, precisa ser collection por ser mais genérico
+        if(notas.containsKey(mat))
+            return notas.get(mat).values();
+        return null;
     }
     public Double getMediaCR(){
         return mediaCR;
@@ -25,8 +29,9 @@ public class Disciplina {
         return cod_disciplina;
     }
 
-    public void adicionarNota(String mat, Double nota){
-        notas.put(mat,nota);
+    public void adicionarNota(String mat, String semestre, Double nota){
+        this.notas.putIfAbsent(mat, new HashMap<>()); //cria o espaço de memoria do hashmap
+        this.notas.get(mat).put(semestre,nota);
     }
 
     /* 

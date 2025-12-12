@@ -28,7 +28,7 @@ public class Curso {
             crMedio = 0.0;
             return;
         }
-        double soma = 0;
+        double soma = 0.0;
         for(Aluno aluno : alunos){
             soma += aluno.getCR();
         }

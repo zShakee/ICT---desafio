@@ -1,5 +1,4 @@
-
-import java.util.ArrayList;
+import java.util.*;
 
 public class Aluno {
     private String mat;
@@ -26,13 +25,33 @@ public class Aluno {
         if(!disciplinas.contains(disciplina))
             disciplinas.add(disciplina);
     }
+
+    public void exibeDisciplinas(){
+        for(Disciplina disciplina : disciplinas){
+            System.out.printf("%s\n", disciplina.getCodDisciplina());
+        }
+    }
     
     public void calculaCR(){
+        if(disciplinas.isEmpty()){
+            this.cr = 0.0;
+            return;
+        }
+
+
         int totalCargaHoraria = 0;
         double nota_ponderada = 0.0;
+
+
         for(Disciplina disciplina : disciplinas){
-            nota_ponderada += disciplina.getNota(mat)*disciplina.getCargaHoraria();
-            totalCargaHoraria += disciplina.getCargaHoraria();
+            Collection<Double> notas = disciplina.getNota(mat);
+            if(notas != null){ 
+                for(Double nota : notas){
+                    if(nota == null) continue;
+                    nota_ponderada += nota*disciplina.getCargaHoraria();
+                    totalCargaHoraria += disciplina.getCargaHoraria();
+                }
+            }
         }
         if(totalCargaHoraria > 0){
             this.cr = nota_ponderada / totalCargaHoraria;

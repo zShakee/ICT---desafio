@@ -27,7 +27,7 @@ public class SistemaAcademico {
         calcularCRMedioCursos();
     }
     private void processarLinha(String linha) {
-        String[] dados = linha.split("[,; ]");
+        String[] dados = linha.split(",");
          
         if(dados.length < 6){
             System.out.println("Linha inválida");
@@ -39,7 +39,7 @@ public class SistemaAcademico {
         int codCurso = Integer.parseInt(dados[2].trim());
         double nota = Double.parseDouble(dados[3].trim());
         int cargaHoraria = Integer.parseInt(dados[4].trim());
-        String anoSemestre = dados[5].trim();
+        String semestre = dados[5].trim();
 
         Aluno aluno = alunos.get(mat);
         if(aluno == null ){
@@ -60,7 +60,7 @@ public class SistemaAcademico {
             disciplinas.put(codDisciplina,disciplina);
         }
 
-        disciplina.adicionarNota(mat,nota);
+        disciplina.adicionarNota(mat,semestre,nota);
         aluno.adicionarDisciplina(disciplina);
 
     }
@@ -93,5 +93,11 @@ public class SistemaAcademico {
             System.out.printf("Cod: %d - %.2f\n",curso.getCodCurso(), curso.getCRMedio());
         }
 
+    }
+    public void imprimeAlunos(){
+        for(Aluno aluno : alunos.values()){
+            System.out.printf("Mat: %s\n",aluno.getMat());
+            aluno.exibeDisciplinas();
+        }
     }
 }
