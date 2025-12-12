@@ -1,6 +1,6 @@
 ## Desafio 3
 
-Você precisa calcular o CR de alunos de uma universidade. Para isto será preciso ler de um [arquivo csv](datasets/notas.csv) a lista de notas dos alunos e, de acordo com as notas e os critérios da universidade, calcular o CR de todos os alunos. Ao final do processo, será preciso mostrar na tela o CR de todos os alunos e qual a média de CR dos cursos.
+Você precisa calcular o CR de alunos de uma universidade. Para isto será preciso ler de um [arquivo csv](notas.csv) a lista de notas dos alunos e, de acordo com as notas e os critérios da universidade, calcular o CR de todos os alunos. Ao final do processo, será preciso mostrar na tela o CR de todos os alunos e qual a média de CR dos cursos.
 
 ### Regras
 * A nota do aluno vai de zero até 100;
